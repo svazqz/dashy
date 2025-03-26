@@ -15,7 +15,9 @@ class Config extends Core\APIController {
     echo json_encode(array(
         "backgroundImage" => "bg3.jpg",
         "overlayOpacity" => $this->calculateOpacity(),
-        "localHour" => (int)date('G')
+        "localHour" => (int)date('G'),
+        "timezone" => date_default_timezone_get(),
+        "fullTime" => date('Y-m-d H:i:s')
     ));
   }
 }
