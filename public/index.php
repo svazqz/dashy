@@ -7,24 +7,28 @@ Config::init();
 
 $Config = Config::get();
 
+$db = new SQLite3('testing.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+// Create a table.
+$db->query(
+'CREATE TABLE IF NOT EXISTS "users" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "name" VARCHAR
+  )'
+);
+// // Insert some sample data.
+// $db->query('INSERT INTO "users" ("name") VALUES ("Karl")');
+// $db->query('INSERT INTO "users" ("name") VALUES ("Linda")');
+// $db->query('INSERT INTO "users" ("name") VALUES ("John")');
+// // Get a count of the number of users
+// $userCount = $db->querySingle('SELECT COUNT(DISTINCT "id") FROM "users"');
+// echo("User count: $userCount\n");
+// // Close the connection
+// $db->close();
+// exit;
+
 $whoops = new Whoops\Run();
 $whoops->pushHandler(new Whoops\Handler\PrettyPageHandler());
 $whoops->register();
-
-// ActiveRecord\Config::initialize(function($cfg) {
-// 	$Config = Config::get();
-// 	$cfg->set_model_directory(getcwd().'/app/models');
-// 	$type = $Config->getVar("db.type", "mysql");
-// 	$host = $Config->getVar("db.host", "");
-// 	$user = $Config->getVar("db.user", "");
-// 	$pass = $Config->getVar("db.password", "");
-// 	$name = $Config->getVar("db.name", "");
-// 	$cfg->set_connections(
-// 		array(
-// 			'development' => "{$type}://{$user}:{$pass}@{$host}/{$name}?charset=utf8"
-// 		)
-// 	);
-// });
 
 $URI = $_SERVER['REQUEST_URI'];
 $URI = parse_url('http://phproutingsystem.com'.$URI);
